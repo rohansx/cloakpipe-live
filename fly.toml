@@ -1,0 +1,26 @@
+# Fly.io config — collapses the orchestrator + CloakPipe trust layer + built
+# frontend onto one machine. `fly launch` / `fly deploy` from the repo root.
+app = "cloakpipe-live"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8787"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[http_service.checks]]
+  interval = "15s"
+  timeout = "2s"
+  method = "GET"
+  path = "/api/health"
+
+# Set the OpenAI key (optional — scripted fallback works without it):
+#   fly secrets set OPENAI_API_KEY=sk-...
