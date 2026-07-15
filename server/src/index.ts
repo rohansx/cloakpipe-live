@@ -102,7 +102,8 @@ if (existsSync(webDist)) {
 }
 
 const port = Number(process.env.PORT ?? 8787);
-serve({ fetch: app.fetch, port }, (info) => {
+// Bind all interfaces so a container reverse proxy (Dokploy/Fly/Railway) can reach it.
+serve({ fetch: app.fetch, port, hostname: "0.0.0.0" }, (info) => {
   console.log(`CloakPipe Live server on http://localhost:${info.port}`);
   console.log(`Agent runtime: ${process.env.OPENAI_API_KEY ? "OpenAI" : "scripted (deterministic fallback)"}`);
 });
