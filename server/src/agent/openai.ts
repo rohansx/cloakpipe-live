@@ -1,7 +1,9 @@
-// OpenAI-powered agent. Same generator shape as the scripted agent, so the
+// LLM-powered agent. Same generator shape as the scripted agent, so the
 // orchestrator doesn't care which one is running. Used when OPENAI_API_KEY is
-// set. The trust layer stays deterministic no matter how the model phrases its
-// tool calls — that's what makes an unscripted live demo safe.
+// set. Works against any OpenAI-compatible endpoint — real OpenAI, or Ollama
+// Cloud / vLLM / etc. via OPENAI_BASE_URL. The trust layer stays deterministic
+// no matter how the model phrases its tool calls — that's what makes an
+// unscripted live demo safe.
 
 import OpenAI from "openai";
 import type {
@@ -36,7 +38,12 @@ function toolSchema(): ChatCompletionTool[] {
 }
 
 export async function* openaiAgent(ctx: AgentContext): Agent {
-  const client = new OpenAI();
+  // baseURL lets us target any OpenAI-compatible API (e.g. Ollama Cloud at
+  // https://ollama.com/v1). Undefined → the SDK's default OpenAI endpoint.
+  const client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: process.env.OPENAI_BASE_URL || undefined,
+  });
   const messages: ChatCompletionMessageParam[] = [
     { role: "system", content: systemPrompt(ctx) },
   ];
