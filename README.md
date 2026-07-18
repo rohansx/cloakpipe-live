@@ -2,6 +2,8 @@
 
 **A glass box for AI agents — watch what an agent *tries* to leak, and what actually leaves the wire.**
 
+> **▶ Live demo — [cloakpipe-live.187-127-185-75.sslip.io](https://cloakpipe-live.187-127-185-75.sslip.io)** · no login, pick a scenario and hit **Run agent**.
+
 CloakPipe Live is a hosted playground where you hand an AI agent a PII-heavy task and see, in real time, the difference between the payloads the agent *emitted* and the payloads **CloakPipe** actually let out — tokenized PII, redactions, and blocked calls — plus a tamper-evident evidence ledger of every action.
 
 ![CloakPipe Live — split screen](docs/hero.png)
