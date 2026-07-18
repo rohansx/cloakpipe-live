@@ -1,19 +1,22 @@
 @import "tailwindcss";
 
-/* ---- Glass-box theme: a dark observability console. ---- */
+/* ---- Glass-box theme: a dark observability console, on the cloakpipe.co
+   brand system — warm near-black (#0a0a0a), signature green (#00ff66), Geist
+   display + JetBrains Mono. Verdict colors (red=leak/block, amber=redact,
+   green=tokenized/safe) are semantic and load-bearing — kept. ---- */
 @theme {
-  --color-ink-950: #05070d;
-  --color-ink-900: #0a0e18;
-  --color-ink-850: #0e1420;
-  --color-ink-800: #131a2a;
-  --color-ink-700: #1c2739;
-  --color-ink-600: #2a3852;
-  --color-line: #1f2b3f;
+  --color-ink-950: #0a0a0a;
+  --color-ink-900: #0e0e10;
+  --color-ink-850: #121214;
+  --color-ink-800: #161619;
+  --color-ink-700: #1f1f23;
+  --color-ink-600: #2b2b31;
+  --color-line: #232327;
 
-  --color-fog-100: #e7edf7;
-  --color-fog-300: #aebacc;
-  --color-fog-400: #8695ad;
-  --color-fog-500: #5f6f88;
+  --color-fog-100: #f2f2f4;
+  --color-fog-300: #b4b4b8;
+  --color-fog-400: #8a8a90;
+  --color-fog-500: #66666c;
 
   --color-leak: #ff5c6c;
   --color-leak-soft: #3a1620;
@@ -21,8 +24,11 @@
   --color-token-soft: #0f2a24;
   --color-warn: #ffb454;
   --color-block: #ff5c6c;
-  --color-cyan: #38d6f2;
+  /* Brand accent (was cyan). Named --color-cyan so existing usages inherit it. */
+  --color-cyan: #00ff66;
+  --color-brand: #00ff66;
 
+  --font-display: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
 }
 
@@ -39,13 +45,27 @@ body,
 body {
   margin: 0;
   background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(56, 214, 242, 0.06), transparent 60%),
-    radial-gradient(1000px 500px at 100% 0%, rgba(53, 224, 161, 0.05), transparent 55%),
+    radial-gradient(1200px 600px at 15% -10%, rgba(0, 255, 102, 0.05), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(0, 255, 102, 0.035), transparent 55%),
     var(--color-ink-950);
   color: var(--color-fog-100);
-  font-family:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display headings: Geist-tight tracking, matching cloakpipe.co. */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Uppercase mono labels — the cloakpipe.co "V1.4 · OPEN SOURCE" chip treatment. */
+.label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
 }
 
 /* Thin, dark scrollbars to match the console aesthetic. */
@@ -108,7 +128,7 @@ body {
 @keyframes rowin {
   from {
     opacity: 0;
-    background: rgba(56, 214, 242, 0.12);
+    background: rgba(0, 255, 102, 0.1);
   }
   to {
     opacity: 1;

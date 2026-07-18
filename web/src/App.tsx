@@ -150,24 +150,25 @@ export default function App() {
       {/* Header */}
       <header className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[--color-line] bg-[--color-ink-900]/70 px-4 py-3">
         <div className="flex items-center gap-3">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-[--color-cyan]/30 to-[--color-token]/20 text-lg">
-            🛡️
+          <div className="mono grid h-9 w-9 place-items-center rounded-lg border border-[rgba(0,255,102,0.3)] bg-[rgba(0,255,102,0.06)] text-lg font-bold text-[--color-brand]">
+            //
           </div>
           <div>
             <h1 className="text-[15px] font-semibold leading-tight text-[--color-fog-100]">
-              CloakPipe <span className="text-[--color-cyan]">Live</span>
+              CloakPipe <span className="text-[--color-brand]">Live</span>
             </h1>
             <p className="text-[11.5px] text-[--color-fog-500]">
               A glass box for AI agents — what it tried to leak vs. what actually left the wire.
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="rounded-full border border-[--color-line] bg-[--color-ink-850] px-2.5 py-1 text-[--color-fog-400]">
-            agent runtime: <span className="mono text-[--color-fog-100]">{agent}</span>
+        <div className="flex items-center gap-2">
+          <span className="label rounded-full border border-[--color-line] bg-[--color-ink-850] px-2.5 py-1.5 text-[--color-fog-400]">
+            agent&nbsp;· <span className="text-[--color-fog-100]">{agent}</span>
           </span>
-          <span className="rounded-full border border-[rgba(53,224,161,0.3)] bg-[rgba(53,224,161,0.08)] px-2.5 py-1 text-[--color-token]">
-            trust layer: CloakPipe
+          <span className="label inline-flex items-center gap-1.5 rounded-full border border-[rgba(0,255,102,0.3)] bg-[rgba(0,255,102,0.08)] px-2.5 py-1.5 text-[--color-brand]">
+            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-[--color-brand]" />
+            trust&nbsp;layer&nbsp;· cloakpipe
           </span>
         </div>
       </header>
