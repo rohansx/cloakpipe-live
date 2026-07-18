@@ -20,7 +20,7 @@ Judges respect honesty about the seams, so here it is plainly:
 
 | Part | Status |
 | --- | --- |
-| PII detection + deterministic tokenization | **Real** — regex + Luhn detectors, HMAC-derived stable tokens |
+| PII detection + deterministic tokenization | **Real** — two layers: deterministic regex + Luhn for structured PII (cards, IDs, secrets), plus an **LLM NER layer** (`gpt-oss:20b` via Ollama Cloud) that catches free-text names, addresses, and orgs regex can't. HMAC-derived stable tokens. Detection is smart; the policy decision + evidence on top are deterministic |
 | Policy engine (allow / redact / block) | **Real** — mirrors the pre-written Cedar policies in [`server/policies/`](server/policies) |
 | Hash-chained evidence ledger + verify + tamper | **Real** — SHA-256 chain, recomputed on verify |
 | Agent loop | **Real** — a live LLM making its own tool calls (the hosted demo runs **`gpt-oss:120b` via Ollama Cloud**; any OpenAI-compatible endpoint works). Falls back to a deterministic scripted agent if no key is set, so the URL never goes dark |
