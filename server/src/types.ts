@@ -9,6 +9,9 @@ export type PiiType =
   | "AADHAAR"
   | "CREDIT_CARD"
   | "NAME"
+  | "ADDRESS"
+  | "LOCATION"
+  | "ORG"
   | "DOB"
   | "INSURANCE_ID"
   | "SECRET";

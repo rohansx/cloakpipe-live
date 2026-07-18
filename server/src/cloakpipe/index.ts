@@ -8,6 +8,7 @@ import { randomUUID } from "node:crypto";
 import type { EgressResult, PiiSpan, SanitizedEgress, Transform } from "../types.js";
 import type { ScenarioId } from "../types.js";
 import { detect } from "./detectors.js";
+import { mergeSpans, nerDetect } from "./ner.js";
 import { evaluate } from "./policy.js";
 import { hashPayload, ledger } from "./ledger.js";
 import { redact, tokenize } from "./tokenize.js";
@@ -43,13 +44,17 @@ function reparse(text: string, fallback: unknown): unknown {
  * Process one egress. `blocked` results still produce a full raw+sanitized view
  * and a ledger entry — the blocked attempt is itself evidence.
  */
-export function processEgress(
+export async function processEgress(
   destination: string,
   payload: unknown,
   scenario: ScenarioId,
-): EgressResult {
+): Promise<EgressResult> {
   const rawDisplay = render(payload);
-  const spans = detect(rawDisplay);
+  // Regex layer (deterministic, structured PII) + ML NER layer (free-text names,
+  // addresses, orgs). Regex wins on overlap; NER only fills the gaps it can't see.
+  const regexSpans = detect(rawDisplay);
+  const nerSpans = await nerDetect(rawDisplay);
+  const spans = mergeSpans(regexSpans, nerSpans);
   const decision = evaluate(destination, payload, spans, scenario);
 
   const { text: sanitizedDisplay, transforms } = applyTransforms(rawDisplay, spans);

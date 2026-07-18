@@ -53,7 +53,7 @@ export async function runAgent(params: RunParams, emit: Emit): Promise<void> {
 
       if (stepValue.tool) {
         const { destination, payload } = stepValue.tool;
-        const result = processEgress(destination, payload, params.scenario);
+        const result = await processEgress(destination, payload, params.scenario);
 
         // Left panel: what the agent tried to send.
         emit({ kind: "agent_tool_call", id: result.id, destination, raw: result.raw });
