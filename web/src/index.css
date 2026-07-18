@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/* ---- Glass-box theme: a dark observability console. ---- */
+@theme {
+  --color-ink-950: #05070d;
+  --color-ink-900: #0a0e18;
+  --color-ink-850: #0e1420;
+  --color-ink-800: #131a2a;
+  --color-ink-700: #1c2739;
+  --color-ink-600: #2a3852;
+  --color-line: #1f2b3f;
+
+  --color-fog-100: #e7edf7;
+  --color-fog-300: #aebacc;
+  --color-fog-400: #8695ad;
+  --color-fog-500: #5f6f88;
+
+  --color-leak: #ff5c6c;
+  --color-leak-soft: #3a1620;
+  --color-token: #35e0a1;
+  --color-token-soft: #0f2a24;
+  --color-warn: #ffb454;
+  --color-block: #ff5c6c;
+  --color-cyan: #38d6f2;
+
+  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(56, 214, 242, 0.06), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(53, 224, 161, 0.05), transparent 55%),
+    var(--color-ink-950);
+  color: var(--color-fog-100);
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin, dark scrollbars to match the console aesthetic. */
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #223049;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "liga" 0;
+}
+
+/* PII highlight on the "tried to send" side. */
+.pii {
+  color: #ffd7dc;
+  background: var(--color-leak-soft);
+  border-bottom: 1px solid rgba(255, 92, 108, 0.6);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* Token / redaction highlight on the "actually left" side. */
+.tok {
+  color: var(--color-token);
+  background: var(--color-token-soft);
+  border-bottom: 1px solid rgba(53, 224, 161, 0.5);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+.tok.redacted {
+  color: var(--color-warn);
+  background: rgba(255, 180, 84, 0.1);
+  border-bottom-color: rgba(255, 180, 84, 0.5);
+}
+
+.card-appear {
+  animation: appear 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.row-appear {
+  animation: rowin 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes rowin {
+  from {
+    opacity: 0;
+    background: rgba(56, 214, 242, 0.12);
+  }
+  to {
+    opacity: 1;
+    background: transparent;
+  }
+}
+
+.pulse-dot {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
